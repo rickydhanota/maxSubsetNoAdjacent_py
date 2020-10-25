@@ -8,11 +8,15 @@
 # ouput = 330 // 75 + 120 + 135
 
 def maxSubsetSumNoAdjacent(array):
-    sumtotal = 0
-    for i in range(len(array)):
-        if i%2 == 0 and array[i] >= 0:
-            sumtotal += array[i]
-    return sumtotal
+    if not len(array):
+        return 0
+    elif len(array) == 1:
+        return array[0]
+    maxSums = array[:]
+    maxSums[1] = max(array[0], array[1])
+    for i in range(2, len(array)):
+        maxSums[i] = max(maxSums[i-1], maxSums[i-2] + array[i])
+    return maxSums[-1]
 
 print(maxSubsetSumNoAdjacent([75, 105, 120, 75, 90, 135]))
 
